@@ -69,7 +69,7 @@ void AbstractDecorator::decorate(const QString &text, int state)
                 if (entry.at(0).isUpper()) {
                     // Check if we are importing a module
                     if (i > 0) {
-                        const QmlJS::Token &previousToken = tokens.at(i - 1);
+                        const QmlJS::Token &previousToken = tokens.first();
                         if (previousToken.is(QmlJS::Token::Identifier)
                             && text.mid(previousToken.offset, previousToken.length) == QLatin1String("import")) {
                             addKeyword(token.offset, token.length);
