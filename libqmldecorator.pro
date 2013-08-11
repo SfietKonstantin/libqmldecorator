@@ -1,2 +1,2 @@
 TEMPLATE = subdirs
-SUBDIRS = lib qml
+SUBDIRS = lib qml bin

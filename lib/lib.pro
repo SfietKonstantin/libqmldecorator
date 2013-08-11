@@ -4,14 +4,8 @@ CONFIG += static
 
 HEADERS += \
     qmljsscanner.h \
-#    decorator.h \
-    qmlsyntaxhighlighter.h \
-    abstractdecorator.h \
-    qmlsyntaxhighlighterpalette.h
+    abstractdecorator.h
 
 SOURCES += \
     qmljsscanner.cpp \
-#    decorator.cpp \
-    qmlsyntaxhighlighter.cpp \
-    abstractdecorator.cpp \
-    qmlsyntaxhighlighterpalette.cpp
+    abstractdecorator.cpp

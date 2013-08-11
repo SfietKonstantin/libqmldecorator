@@ -30,7 +30,7 @@ void AbstractDecorator::decorate(const QString &text, int state)
         return;
     }
 
-    prepare();
+    prepare(text);
 
     QmlJS::Scanner scanner;
     QList<QmlJS::Token> tokens = scanner(text, state);
@@ -126,8 +126,9 @@ void AbstractDecorator::decorate(const QString &text, int state)
     finalize();
 }
 
-void AbstractDecorator::prepare()
+void AbstractDecorator::prepare(const QString &text)
 {
+    Q_UNUSED(text)
 }
 
 void AbstractDecorator::addKeyword(int begin, int length)

@@ -5,7 +5,17 @@ QT = core gui qml
 INCLUDEPATH += ../lib
 LIBS +=-L../lib -lqmldecorator
 
-SOURCES += plugin.cpp
+SOURCES +=
+
+HEADERS += \
+    qmlsyntaxhighlighter.h \
+    qmlsyntaxhighlighterpalette.h
+
+SOURCES += \
+    plugin.cpp \
+    qmlsyntaxhighlighter.cpp \
+    qmlsyntaxhighlighterpalette.cpp
+
 
 TEMPLATE = lib
 CONFIG += plugin

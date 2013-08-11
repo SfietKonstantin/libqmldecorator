@@ -28,7 +28,7 @@ public:
     AbstractDecorator();
     void decorate(const QString &text, int state = QmlJS::Scanner::Normal);
 protected:
-    virtual void prepare();
+    virtual void prepare(const QString &text);
     virtual void addKeyword(int begin, int length);
     virtual void addComponent(int begin, int length);
     virtual void addIdentifier(int begin, int length);
