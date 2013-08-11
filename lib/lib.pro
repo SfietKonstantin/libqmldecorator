@@ -6,10 +6,12 @@ HEADERS += \
     qmljsscanner.h \
 #    decorator.h \
     qmlsyntaxhighlighter.h \
-    abstractdecorator.h
+    abstractdecorator.h \
+    qmlsyntaxhighlighterpalette.h
 
 SOURCES += \
     qmljsscanner.cpp \
 #    decorator.cpp \
     qmlsyntaxhighlighter.cpp \
-    abstractdecorator.cpp
+    abstractdecorator.cpp \
+    qmlsyntaxhighlighterpalette.cpp

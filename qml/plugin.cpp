@@ -19,6 +19,7 @@
 #include <QtQml/QQmlExtensionPlugin>
 #include <QtQml/qqml.h>
 #include "qmlsyntaxhighlighter.h"
+#include "qmlsyntaxhighlighterpalette.h"
 
 class QtQuickControlsPlugin : public QQmlExtensionPlugin
 {
@@ -33,6 +34,7 @@ void QtQuickControlsPlugin::registerTypes(const char *uri)
 {
     // @uri org.SfietKonstantin.qmldecorator
     qmlRegisterType<QmlSyntaxHighlighter>(uri, 1, 0, "QmlSyntaxHighlighter");
+    qmlRegisterType<QmlSyntaxHighlighterPalette>(uri, 1, 0, "QmlSyntaxHighlighterPalette");
 }
 
 #include "plugin.moc"

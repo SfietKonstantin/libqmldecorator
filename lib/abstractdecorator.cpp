@@ -261,6 +261,8 @@ bool AbstractDecorator::maybeMacro(const QString &text) const
 {
     if (text == QLatin1String("console")) {
         return true;
+    } else if (text == QLatin1String("Qt")) {
+        return true;
     } else {
         return false;
     }

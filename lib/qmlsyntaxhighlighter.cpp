@@ -19,12 +19,15 @@
 #include "qmlsyntaxhighlighter.h"
 #include <QtCore/QCoreApplication>
 #include <QtCore/QDebug>
+#include "qmlsyntaxhighlighterpalette.h"
 
 class SyntaxHighlighter: public QSyntaxHighlighter, private AbstractDecorator
 {
     Q_OBJECT
 public:
     explicit SyntaxHighlighter(QObject *parent = 0);
+    QmlSyntaxHighlighterPalette * palette() const;
+    void setPalette(QmlSyntaxHighlighterPalette *palette);
 protected:
     bool event(QEvent *e);
 private:
@@ -37,11 +40,22 @@ private:
     void addComment(int begin, int length);
     void addNumber(int begin, int length);
     void setState(int state);
+    QmlSyntaxHighlighterPalette *m_palette;
 };
 
 SyntaxHighlighter::SyntaxHighlighter(QObject *parent):
-    QSyntaxHighlighter(parent), AbstractDecorator()
+    QSyntaxHighlighter(parent), AbstractDecorator(), m_palette(0)
 {
+}
+
+QmlSyntaxHighlighterPalette * SyntaxHighlighter::palette() const
+{
+    return m_palette;
+}
+
+void SyntaxHighlighter::setPalette(QmlSyntaxHighlighterPalette *palette)
+{
+    m_palette = palette;
 }
 
 bool SyntaxHighlighter::event(QEvent *e)
@@ -65,51 +79,79 @@ void SyntaxHighlighter::highlightBlock(const QString &text)
 
 void SyntaxHighlighter::addKeyword(int begin, int length)
 {
-    QTextCharFormat keyword;
-    keyword.setForeground(Qt::darkYellow);
-    setFormat(begin, length, keyword);
+    QColor color;
+    if (m_palette) {
+        color = m_palette->keyword();
+    } else {
+        color = QColor(Qt::darkYellow);
+    }
+    setFormat(begin, length, color);
 }
 
 void SyntaxHighlighter::addComponent(int begin, int length)
 {
-    QTextCharFormat keyword;
-    keyword.setForeground(Qt::darkMagenta);
-    setFormat(begin, length, keyword);
+    QColor color;
+    if (m_palette) {
+        color = m_palette->component();
+    } else {
+        color = QColor(Qt::darkMagenta);
+    }
+    setFormat(begin, length, color);
 }
 
 void SyntaxHighlighter::addIdentifier(int begin, int length)
 {
-    QTextCharFormat keyword;
-    keyword.setForeground(Qt::darkRed);
-    setFormat(begin, length, keyword);
+    QColor color;
+    if (m_palette) {
+        color = m_palette->identifier();
+    } else {
+        color = QColor(Qt::darkRed);
+    }
+    setFormat(begin, length, color);
 }
 
 void SyntaxHighlighter::addMacro(int begin, int length)
 {
-    QTextCharFormat keyword;
-    keyword.setForeground(Qt::cyan);
-    setFormat(begin, length, keyword);
+    QColor color;
+    if (m_palette) {
+        color = m_palette->macro();
+    } else {
+        color = QColor(Qt::cyan);
+    }
+    setFormat(begin, length, color);
 }
 
 void SyntaxHighlighter::addString(int begin, int length)
 {
-    QTextCharFormat keyword;
-    keyword.setForeground(Qt::darkGreen);
-    setFormat(begin, length, keyword);
+    QColor color;
+    if (m_palette) {
+        color = m_palette->string();
+    } else {
+        color = QColor(Qt::darkGreen);
+    }
+    setFormat(begin, length, color);
 }
 
 void SyntaxHighlighter::addComment(int begin, int length)
 {
-    QTextCharFormat keyword;
-    keyword.setForeground(Qt::gray);
-    setFormat(begin, length, keyword);
+    QColor color;
+    if (m_palette) {
+        color = m_palette->comment();
+    } else {
+        color = QColor(Qt::gray);
+    }
+    setFormat(begin, length, color);
 }
 
 void SyntaxHighlighter::addNumber(int begin, int length)
 {
-    QTextCharFormat keyword;
-    keyword.setForeground(Qt::blue);
-    setFormat(begin, length, keyword);
+    QColor color;
+    if (m_palette) {
+        color = m_palette->number();
+    } else {
+        color = QColor(Qt::blue);
+    }
+    setFormat(begin, length, color);
 }
 
 void SyntaxHighlighter::setState(int state)
@@ -137,6 +179,19 @@ void QmlSyntaxHighlighter::setDocument(QQuickTextDocument *document)
         emit documentChanged();
 
         m_syntaxHighlighter->setDocument(document->textDocument());
+    }
+}
+
+QmlSyntaxHighlighterPalette * QmlSyntaxHighlighter::palette() const
+{
+    return m_syntaxHighlighter->palette();
+}
+
+void QmlSyntaxHighlighter::setPalette(QmlSyntaxHighlighterPalette *palette)
+{
+    if (m_syntaxHighlighter->palette() != palette) {
+        m_syntaxHighlighter->setPalette(palette);
+        emit paletteChanged();
     }
 }
 

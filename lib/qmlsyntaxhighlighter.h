@@ -24,6 +24,7 @@
 #include <QtGui/QSyntaxHighlighter>
 #include <QtQuick/QQuickTextDocument>
 #include "abstractdecorator.h"
+#include "qmlsyntaxhighlighterpalette.h"
 
 class SyntaxHighlighter;
 class QmlSyntaxHighlighter : public QObject
@@ -31,12 +32,17 @@ class QmlSyntaxHighlighter : public QObject
     Q_OBJECT
     Q_PROPERTY(QQuickTextDocument * document READ document WRITE setDocument
                NOTIFY documentChanged)
+    Q_PROPERTY(QmlSyntaxHighlighterPalette * palette READ palette WRITE setPalette
+               NOTIFY paletteChanged)
 public:
     explicit QmlSyntaxHighlighter(QObject *parent = 0);
     QQuickTextDocument * document() const;
     void setDocument(QQuickTextDocument *document);
+    QmlSyntaxHighlighterPalette * palette() const;
+    void setPalette(QmlSyntaxHighlighterPalette *palette);
 signals:
     void documentChanged();
+    void paletteChanged();
 private:
     QQuickTextDocument *m_document;
     SyntaxHighlighter *m_syntaxHighlighter;
